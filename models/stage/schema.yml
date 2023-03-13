@@ -7,9 +7,9 @@ sources:
       #database: taxi-rides-ny-339813
 
       # For postgres:
-      database: dezoom-3
+      database: ny_taxi
 
-      schema: fhv_taxi
+      schema: dbt
 
       # loaded_at_field: record_loaded_at
       tables:

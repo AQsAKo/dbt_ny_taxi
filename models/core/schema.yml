@@ -1,7 +1,6 @@
 version: 2
 
 models:
-  - name: dim_zones
   - name: fhv_tripdata
   - name: dim_zones
     description: >
