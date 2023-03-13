@@ -1,19 +1,19 @@
-{{ config(materialized='view') }}
+{{ config(materialized='table') }}
 
 with tripdata as 
 (
   select *,
-    row_number() over(partition by vendorid, lpep_pickup_datetime) as rn
+    row_number() over(partition by "VendorID", lpep_pickup_datetime) as rn
   from {{ source('stage','green') }}
-  where vendorid is not null 
+  where "VendorID" is not null 
 )
 select
     -- identifiers
-    {{ dbt_utils.surrogate_key(['vendorid', 'lpep_pickup_datetime']) }} as tripid,
-    cast(vendorid as integer) as vendorid,
-    cast(ratecodeid as integer) as ratecodeid,
-    cast(pulocationid as integer) as  pickup_locationid,
-    cast(dolocationid as integer) as dropoff_locationid,
+    {{ dbt_utils.surrogate_key(['"VendorID"', 'lpep_pickup_datetime']) }} as tripid,
+    cast("VendorID" as integer) as VendorID,
+    cast("RatecodeID" as integer) as ratecodeid,
+    cast("PULocationID" as integer) as  pickup_locationid,
+    cast("DOLocationID" as integer) as dropoff_locationid,
     
     -- timestamps
     cast(lpep_pickup_datetime as timestamp) as pickup_datetime,

@@ -1,4 +1,4 @@
-{{ config(materialized='view') }}
+{{ config(materialized='table') }}
 
 with fhv_data as (
     select * from {{ source('stage','fhv') }}
